@@ -1,0 +1,628 @@
+{
+  "/equity/compare/peers": {
+    "name": "peers",
+    "description": "Equity Peers. Company peers.",
+    "function": "EQUITY.COMPARE.PEERS",
+    "signature": "=OBB.EQUITY.COMPARE.PEERS(symbol;[provider])",
+    "parameters": {
+      "symbol": {
+        "type": "Text",
+        "description": "Symbol to get data for.",
+        "required": true
+      },
+      "provider": {
+        "type": "Text",
+        "description": "Options: fmp, defaults to fmp.",
+        "required": false
+      }
+    },
+    "data": {
+      "peers_list": {
+        "description": "A list of equity peers based on sector, exchange and market cap. "
+      }
+    },
+    "return": "matrix",
+    "examples": {
+      "Comparable companies for AAPL": "=OBB.EQUITY.COMPARE.PEERS(\"AAPL\")",
+      "Get peers for Microsoft": "=OBB.EQUITY.COMPARE.PEERS(\"MSFT\")",
+      "Comarable peers for Tesla using FMP": "=OBB.EQUITY.COMPARE.PEERS(\"TSLA\"; \"fmp\")"
+    }
+  },
+  "/crypto/price/historical": {
+    "name": "historical",
+    "description": "Cryptocurrency Historical Price. Cryptocurrency historical price data.",
+    "function": "CRYPTO.PRICE.HISTORICAL",
+    "signature": "=OBB.CRYPTO.PRICE.HISTORICAL(symbol;[start_date];[end_date];[provider];[timeseries];[interval];[multiplier];[timespan];[sort];[limit];[adjusted];[exchanges])",
+    "parameters": {
+      "symbol": {
+        "type": "Text",
+        "description": "Symbol to get data for. Can use CURR1-CURR2 or CURR1CURR2 format.",
+        "required": true
+      },
+      "start_date": {
+        "type": "Text",
+        "description": "Start date of the data, in YYYY-MM-DD format.",
+        "required": false
+      },
+      "end_date": {
+        "type": "Text",
+        "description": "End date of the data, in YYYY-MM-DD format.",
+        "required": false
+      },
+      "provider": {
+        "type": "Text",
+        "description": "Options: fmp, polygon, tiingo, defaults to fmp.",
+        "required": false
+      },
+      "timeseries": {
+        "type": "Number",
+        "description": "Number of days to look back. (provider: fmp)",
+        "required": false
+      },
+      "interval": {
+        "type": "Text",
+        "description": "Data granularity. (provider: fmp, tiingo)",
+        "required": false
+      },
+      "multiplier": {
+        "type": "Number",
+        "description": "Multiplier of the timespan. (provider: polygon)",
+        "required": false
+      },
+      "timespan": {
+        "type": "Text",
+        "description": "Timespan of the data. (provider: polygon)",
+        "required": false
+      },
+      "sort": {
+        "type": "Text",
+        "description": "Sort order of the data. (provider: polygon)",
+        "required": false
+      },
+      "limit": {
+        "type": "Number",
+        "description": "The number of data entries to return. (provider: polygon)",
+        "required": false
+      },
+      "adjusted": {
+        "type": "Boolean",
+        "description": "Whether the data is adjusted. (provider: polygon)",
+        "required": false
+      },
+      "exchanges": {
+        "type": "Any",
+        "description": "To limit the query to a subset of exchanges e.g. ['POLONIEX', 'GDAX'] (provider: tiingo)",
+        "required": false
+      }
+    },
+    "data": {
+      "date": {
+        "description": "The date of the data. "
+      },
+      "open": {
+        "description": "The open price. "
+      },
+      "high": {
+        "description": "The high price. "
+      },
+      "low": {
+        "description": "The low price. "
+      },
+      "close": {
+        "description": "The close price. "
+      },
+      "volume": {
+        "description": "The trading volume. "
+      },
+      "vwap": {
+        "description": "Volume Weighted Average Price over the period. "
+      },
+      "adj_close": {
+        "description": "The adjusted close price. (provider: fmp)"
+      },
+      "unadjusted_volume": {
+        "description": "Unadjusted volume of the symbol. (provider: fmp)"
+      },
+      "change": {
+        "description": "Change in the price of the symbol from the previous day. (provider: fmp)"
+      },
+      "change_percent": {
+        "description": "Change % in the price of the symbol. (provider: fmp)"
+      },
+      "label": {
+        "description": "Human readable format of the date. (provider: fmp)"
+      },
+      "change_over_time": {
+        "description": "Change % in the price of the symbol over a period of time. (provider: fmp)"
+      },
+      "transactions": {
+        "description": "Number of transactions for the symbol in the time period. (provider: polygon, tiingo)"
+      },
+      "volume_notional": {
+        "description": "The last size done for the asset on the specific date in the quote currency. The volume of the asset on the specific date in the quote currency. (provider: tiingo)"
+      }
+    },
+    "return": "matrix",
+    "examples": {
+      "Get crypto historical price for BTC since the beginning of 2024": "=OBB.CRYPTO.PRICE.HISTORICAL(\"BTCUSD\"; \"2024-01-01\")",
+      "Get Ethereum open price using FMP ": "=OBB.CRYPTO.PRICE.HISTORICAL(\"ETHUSD\";\"fmp\")",
+      "Get Solana close price in January 2024 ": "=OBB.CRYPTO.PRICE.HISTORICAL(\"SOLUSD\";\"2023-01-01\";\"2023-01-31\")"
+    }
+  },
+  "/equity/fundamental/income": {
+    "name": "income",
+    "description": "Income Statement. Report on a company's financial performance.",
+    "function": "EQUITY.FUNDAMENTAL.INCOME",
+    "signature": "=OBB.EQUITY.FUNDAMENTAL.INCOME(symbol;[period];[limit];[provider];[fiscal_year];[filing_date];[filing_date_lt];[filing_date_lte];[filing_date_gt];[filing_date_gte];[period_of_report_date];[period_of_report_date_lt];[period_of_report_date_lte];[period_of_report_date_gt];[period_of_report_date_gte];[include_sources];[order];[sort])",
+    "parameters": {
+      "symbol": {
+        "type": "Text",
+        "description": "Symbol to get data for.",
+        "required": true
+      },
+      "period": {
+        "type": "Text",
+        "description": "Time period of the data to return.",
+        "required": false
+      },
+      "limit": {
+        "type": "Number",
+        "description": "The number of data entries to return.",
+        "required": false
+      },
+      "provider": {
+        "type": "Text",
+        "description": "Options: fmp, intrinio, polygon, defaults to fmp.",
+        "required": false
+      },
+      "fiscal_year": {
+        "type": "Number",
+        "description": "The specific fiscal year.  Reports do not go beyond 2008. (provider: intrinio)",
+        "required": false
+      },
+      "filing_date": {
+        "type": "Text",
+        "description": "Filing date of the financial statement. (provider: polygon)",
+        "required": false
+      },
+      "filing_date_lt": {
+        "type": "Text",
+        "description": "Filing date less than the given date. (provider: polygon)",
+        "required": false
+      },
+      "filing_date_lte": {
+        "type": "Text",
+        "description": "Filing date less than or equal to the given date. (provider: polygon)",
+        "required": false
+      },
+      "filing_date_gt": {
+        "type": "Text",
+        "description": "Filing date greater than the given date. (provider: polygon)",
+        "required": false
+      },
+      "filing_date_gte": {
+        "type": "Text",
+        "description": "Filing date greater than or equal to the given date. (provider: polygon)",
+        "required": false
+      },
+      "period_of_report_date": {
+        "type": "Text",
+        "description": "Period of report date of the financial statement. (provider: polygon)",
+        "required": false
+      },
+      "period_of_report_date_lt": {
+        "type": "Text",
+        "description": "Period of report date less than the given date. (provider: polygon)",
+        "required": false
+      },
+      "period_of_report_date_lte": {
+        "type": "Text",
+        "description": "Period of report date less than or equal to the given date. (provider: polygon)",
+        "required": false
+      },
+      "period_of_report_date_gt": {
+        "type": "Text",
+        "description": "Period of report date greater than the given date. (provider: polygon)",
+        "required": false
+      },
+      "period_of_report_date_gte": {
+        "type": "Text",
+        "description": "Period of report date greater than or equal to the given date. (provider: polygon)",
+        "required": false
+      },
+      "include_sources": {
+        "type": "Boolean",
+        "description": "Whether to include the sources of the financial statement. (provider: polygon)",
+        "required": false
+      },
+      "order": {
+        "type": "Text",
+        "description": "Order of the financial statement. (provider: polygon)",
+        "required": false
+      },
+      "sort": {
+        "type": "Text",
+        "description": "Sort of the financial statement. (provider: polygon)",
+        "required": false
+      }
+    },
+    "data": {
+      "period_ending": {
+        "description": "The end date of the reporting period. "
+      },
+      "fiscal_period": {
+        "description": "The fiscal period of the report. "
+      },
+      "fiscal_year": {
+        "description": "The fiscal year of the fiscal period. "
+      },
+      "symbol": {
+        "description": "Symbol representing the entity requested in the data. (provider: fmp);     Symbol of the company. (provider: intrinio)"
+      },
+      "filing_date": {
+        "description": "The date when the filing was made. (provider: fmp)"
+      },
+      "accepted_date": {
+        "description": "The date and time when the filing was accepted. (provider: fmp)"
+      },
+      "reported_currency": {
+        "description": "The currency in which the balance sheet was reported. (provider: fmp, intrinio)"
+      },
+      "revenue": {
+        "description": "Total revenue. (provider: fmp, intrinio, polygon)"
+      },
+      "cost_of_revenue": {
+        "description": "Cost of revenue. (provider: fmp, intrinio, polygon)"
+      },
+      "gross_profit": {
+        "description": "Gross profit. (provider: fmp, intrinio, polygon)"
+      },
+      "gross_profit_margin": {
+        "description": "Gross profit margin. (provider: fmp);     Gross margin ratio. (provider: intrinio)"
+      },
+      "general_and_admin_expense": {
+        "description": "General and administrative expenses. (provider: fmp)"
+      },
+      "research_and_development_expense": {
+        "description": "Research and development expenses. (provider: fmp, intrinio)"
+      },
+      "selling_and_marketing_expense": {
+        "description": "Selling and marketing expenses. (provider: fmp)"
+      },
+      "selling_general_and_admin_expense": {
+        "description": "Selling, general and administrative expenses. (provider: fmp, intrinio)"
+      },
+      "other_expenses": {
+        "description": "Other expenses. (provider: fmp)"
+      },
+      "total_operating_expenses": {
+        "description": "Total operating expenses. (provider: fmp, intrinio)"
+      },
+      "cost_and_expenses": {
+        "description": "Cost and expenses. (provider: fmp)"
+      },
+      "interest_income": {
+        "description": "Interest income. (provider: fmp)"
+      },
+      "total_interest_expense": {
+        "description": "Total interest expenses. (provider: fmp, intrinio);     Interest Expense (provider: polygon)"
+      },
+      "depreciation_and_amortization": {
+        "description": "Depreciation and amortization. (provider: fmp, polygon)"
+      },
+      "ebitda": {
+        "description": "EBITDA. (provider: fmp);     Earnings Before Interest, Taxes, Depreciation and Amortization. (provider: intrinio)"
+      },
+      "ebitda_margin": {
+        "description": "EBITDA margin. (provider: fmp);     Margin on Earnings Before Interest, Taxes, Depreciation and Amortization. (provider: intrinio)"
+      },
+      "total_operating_income": {
+        "description": "Total operating income. (provider: fmp, intrinio)"
+      },
+      "operating_income_margin": {
+        "description": "Operating income margin. (provider: fmp)"
+      },
+      "total_other_income_expenses": {
+        "description": "Total other income and expenses. (provider: fmp)"
+      },
+      "total_pre_tax_income": {
+        "description": "Total pre-tax income. (provider: fmp, intrinio);     Income Before Tax (provider: polygon)"
+      },
+      "pre_tax_income_margin": {
+        "description": "Pre-tax income margin. (provider: fmp, intrinio)"
+      },
+      "income_tax_expense": {
+        "description": "Income tax expense. (provider: fmp, intrinio, polygon)"
+      },
+      "consolidated_net_income": {
+        "description": "Consolidated net income. (provider: fmp, intrinio);     Net Income/Loss (provider: polygon)"
+      },
+      "net_income_margin": {
+        "description": "Net income margin. (provider: fmp)"
+      },
+      "basic_earnings_per_share": {
+        "description": "Basic earnings per share. (provider: fmp, intrinio);     Earnings Per Share (provider: polygon)"
+      },
+      "diluted_earnings_per_share": {
+        "description": "Diluted earnings per share. (provider: fmp, intrinio, polygon)"
+      },
+      "weighted_average_basic_shares_outstanding": {
+        "description": "Weighted average basic shares outstanding. (provider: fmp, intrinio);     Basic Average Shares (provider: polygon)"
+      },
+      "weighted_average_diluted_shares_outstanding": {
+        "description": "Weighted average diluted shares outstanding. (provider: fmp, intrinio);     Diluted Average Shares (provider: polygon)"
+      },
+      "link": {
+        "description": "Link to the filing. (provider: fmp)"
+      },
+      "final_link": {
+        "description": "Link to the filing document. (provider: fmp)"
+      },
+      "operating_revenue": {
+        "description": "Total operating revenue (provider: intrinio)"
+      },
+      "operating_cost_of_revenue": {
+        "description": "Total operating cost of revenue (provider: intrinio)"
+      },
+      "provision_for_credit_losses": {
+        "description": "Provision for credit losses (provider: intrinio)"
+      },
+      "salaries_and_employee_benefits": {
+        "description": "Salaries and employee benefits (provider: intrinio)"
+      },
+      "marketing_expense": {
+        "description": "Marketing expense (provider: intrinio)"
+      },
+      "net_occupancy_and_equipment_expense": {
+        "description": "Net occupancy and equipment expense (provider: intrinio)"
+      },
+      "other_operating_expenses": {
+        "description": "Other operating expenses (provider: intrinio, polygon)"
+      },
+      "depreciation_expense": {
+        "description": "Depreciation expense (provider: intrinio)"
+      },
+      "amortization_expense": {
+        "description": "Amortization expense (provider: intrinio)"
+      },
+      "amortization_of_deferred_policy_acquisition_costs": {
+        "description": "Amortization of deferred policy acquisition costs (provider: intrinio)"
+      },
+      "exploration_expense": {
+        "description": "Exploration expense (provider: intrinio)"
+      },
+      "depletion_expense": {
+        "description": "Depletion expense (provider: intrinio)"
+      },
+      "deposits_and_money_market_investments_interest_income": {
+        "description": "Deposits and money market investments interest income (provider: intrinio)"
+      },
+      "federal_funds_sold_and_securities_borrowed_interest_income": {
+        "description": "Federal funds sold and securities borrowed interest income (provider: intrinio)"
+      },
+      "investment_securities_interest_income": {
+        "description": "Investment securities interest income (provider: intrinio)"
+      },
+      "loans_and_leases_interest_income": {
+        "description": "Loans and leases interest income (provider: intrinio)"
+      },
+      "trading_account_interest_income": {
+        "description": "Trading account interest income (provider: intrinio)"
+      },
+      "other_interest_income": {
+        "description": "Other interest income (provider: intrinio)"
+      },
+      "total_non_interest_income": {
+        "description": "Total non-interest income (provider: intrinio)"
+      },
+      "interest_and_investment_income": {
+        "description": "Interest and investment income (provider: intrinio)"
+      },
+      "short_term_borrowings_interest_expense": {
+        "description": "Short-term borrowings interest expense (provider: intrinio)"
+      },
+      "long_term_debt_interest_expense": {
+        "description": "Long-term debt interest expense (provider: intrinio)"
+      },
+      "capitalized_lease_obligations_interest_expense": {
+        "description": "Capitalized lease obligations interest expense (provider: intrinio)"
+      },
+      "deposits_interest_expense": {
+        "description": "Deposits interest expense (provider: intrinio)"
+      },
+      "federal_funds_purchased_and_securities_sold_interest_expense": {
+        "description": "Federal funds purchased and securities sold interest expense (provider: intrinio)"
+      },
+      "other_interest_expense": {
+        "description": "Other interest expense (provider: intrinio)"
+      },
+      "net_interest_income": {
+        "description": "Net interest income (provider: intrinio);     Interest Income Net (provider: polygon)"
+      },
+      "other_non_interest_income": {
+        "description": "Other non-interest income (provider: intrinio)"
+      },
+      "investment_banking_income": {
+        "description": "Investment banking income (provider: intrinio)"
+      },
+      "trust_fees_by_commissions": {
+        "description": "Trust fees by commissions (provider: intrinio)"
+      },
+      "premiums_earned": {
+        "description": "Premiums earned (provider: intrinio)"
+      },
+      "insurance_policy_acquisition_costs": {
+        "description": "Insurance policy acquisition costs (provider: intrinio)"
+      },
+      "current_and_future_benefits": {
+        "description": "Current and future benefits (provider: intrinio)"
+      },
+      "property_and_liability_insurance_claims": {
+        "description": "Property and liability insurance claims (provider: intrinio)"
+      },
+      "total_non_interest_expense": {
+        "description": "Total non-interest expense (provider: intrinio)"
+      },
+      "net_realized_and_unrealized_capital_gains_on_investments": {
+        "description": "Net realized and unrealized capital gains on investments (provider: intrinio)"
+      },
+      "other_gains": {
+        "description": "Other gains (provider: intrinio)"
+      },
+      "non_operating_income": {
+        "description": "Non-operating income (provider: intrinio);     Non Operating Income/Loss (provider: polygon)"
+      },
+      "other_income": {
+        "description": "Other income (provider: intrinio)"
+      },
+      "other_revenue": {
+        "description": "Other revenue (provider: intrinio)"
+      },
+      "extraordinary_income": {
+        "description": "Extraordinary income (provider: intrinio)"
+      },
+      "total_other_income": {
+        "description": "Total other income (provider: intrinio)"
+      },
+      "ebit": {
+        "description": "Earnings Before Interest and Taxes. (provider: intrinio)"
+      },
+      "impairment_charge": {
+        "description": "Impairment charge (provider: intrinio)"
+      },
+      "restructuring_charge": {
+        "description": "Restructuring charge (provider: intrinio)"
+      },
+      "service_charges_on_deposit_accounts": {
+        "description": "Service charges on deposit accounts (provider: intrinio)"
+      },
+      "other_service_charges": {
+        "description": "Other service charges (provider: intrinio)"
+      },
+      "other_special_charges": {
+        "description": "Other special charges (provider: intrinio)"
+      },
+      "other_cost_of_revenue": {
+        "description": "Other cost of revenue (provider: intrinio)"
+      },
+      "net_income_continuing_operations": {
+        "description": "Net income (continuing operations) (provider: intrinio)"
+      },
+      "net_income_discontinued_operations": {
+        "description": "Net income (discontinued operations) (provider: intrinio)"
+      },
+      "other_adjustments_to_consolidated_net_income": {
+        "description": "Other adjustments to consolidated net income (provider: intrinio)"
+      },
+      "other_adjustment_to_net_income_attributable_to_common_shareholders": {
+        "description": "Other adjustment to net income attributable to common shareholders (provider: intrinio)"
+      },
+      "net_income_attributable_to_noncontrolling_interest": {
+        "description": "Net income attributable to noncontrolling interest (provider: intrinio)"
+      },
+      "net_income_attributable_to_common_shareholders": {
+        "description": "Net income attributable to common shareholders (provider: intrinio);     Net Income/Loss Available To Common Stockholders Basic (provider: polygon)"
+      },
+      "basic_and_diluted_earnings_per_share": {
+        "description": "Basic and diluted earnings per share (provider: intrinio)"
+      },
+      "cash_dividends_to_common_per_share": {
+        "description": "Cash dividends to common per share (provider: intrinio)"
+      },
+      "preferred_stock_dividends_declared": {
+        "description": "Preferred stock dividends declared (provider: intrinio)"
+      },
+      "weighted_average_basic_and_diluted_shares_outstanding": {
+        "description": "Weighted average basic and diluted shares outstanding (provider: intrinio)"
+      },
+      "cost_of_revenue_goods": {
+        "description": "Cost of Revenue - Goods (provider: polygon)"
+      },
+      "cost_of_revenue_services": {
+        "description": "Cost of Revenue - Services (provider: polygon)"
+      },
+      "provisions_for_loan_lease_and_other_losses": {
+        "description": "Provisions for loan lease and other losses (provider: polygon)"
+      },
+      "income_tax_expense_benefit_current": {
+        "description": "Income tax expense benefit current (provider: polygon)"
+      },
+      "deferred_tax_benefit": {
+        "description": "Deferred tax benefit (provider: polygon)"
+      },
+      "benefits_costs_expenses": {
+        "description": "Benefits, costs and expenses (provider: polygon)"
+      },
+      "selling_general_and_administrative_expense": {
+        "description": "Selling, general and administrative expense (provider: polygon)"
+      },
+      "research_and_development": {
+        "description": "Research and development (provider: polygon)"
+      },
+      "costs_and_expenses": {
+        "description": "Costs and expenses (provider: polygon)"
+      },
+      "operating_expenses": {
+        "description": "Operating expenses (provider: polygon)"
+      },
+      "operating_income": {
+        "description": "Operating Income/Loss (provider: polygon)"
+      },
+      "interest_and_dividend_income": {
+        "description": "Interest and Dividend Income (provider: polygon)"
+      },
+      "interest_and_debt_expense": {
+        "description": "Interest and Debt Expense (provider: polygon)"
+      },
+      "interest_income_after_provision_for_losses": {
+        "description": "Interest Income After Provision for Losses (provider: polygon)"
+      },
+      "non_interest_expense": {
+        "description": "Non-Interest Expense (provider: polygon)"
+      },
+      "non_interest_income": {
+        "description": "Non-Interest Income (provider: polygon)"
+      },
+      "income_from_discontinued_operations_net_of_tax_on_disposal": {
+        "description": "Income From Discontinued Operations Net of Tax on Disposal (provider: polygon)"
+      },
+      "income_from_discontinued_operations_net_of_tax": {
+        "description": "Income From Discontinued Operations Net of Tax (provider: polygon)"
+      },
+      "income_before_equity_method_investments": {
+        "description": "Income Before Equity Method Investments (provider: polygon)"
+      },
+      "income_from_equity_method_investments": {
+        "description": "Income From Equity Method Investments (provider: polygon)"
+      },
+      "income_after_tax": {
+        "description": "Income After Tax (provider: polygon)"
+      },
+      "net_income_attributable_noncontrolling_interest": {
+        "description": "Net income (loss) attributable to noncontrolling interest (provider: polygon)"
+      },
+      "net_income_attributable_to_parent": {
+        "description": "Net income (loss) attributable to parent (provider: polygon)"
+      },
+      "participating_securities_earnings": {
+        "description": "Participating Securities Distributed And Undistributed Earnings Loss Basic (provider: polygon)"
+      },
+      "undistributed_earnings_allocated_to_participating_securities": {
+        "description": "Undistributed Earnings Allocated To Participating Securities (provider: polygon)"
+      },
+      "common_stock_dividends": {
+        "description": "Common Stock Dividends (provider: polygon)"
+      },
+      "preferred_stock_dividends_and_other_adjustments": {
+        "description": "Preferred stock dividends and other adjustments (provider: polygon)"
+      }
+    },
+    "return": "matrix",
+    "examples": {
+      "Get income statement of southwest airlines for Q4 2022": "=OBB.EQUITY.FUNDAMENTAL.INCOME(\"LUV\"; \"quarterly\")",
+      "Get the Net Income for Apple in the past calendar year": "=OBB.EQUITY.FUNDAMENTAL.INCOME(\"AAPL\";\"annual\")",
+      "Get Income Statement for NVDIA using data from Intrinio": "=OBB.EQUITY.FUNDAMENTAL.INCOME(\"NVDA\",,,\"intrinio\")",
+      "Get Total Revenue for Microsoft": "=OBB.EQUITY.FUNDAMENTAL.INCOME(\"MSFT\")"
+    }
+  }
+}
