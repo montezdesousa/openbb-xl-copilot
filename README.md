@@ -1,4 +1,4 @@
-# OpenBB Excel Copilot
+# OpenBB Excel Copilot backend
 
 ## Setup
 
