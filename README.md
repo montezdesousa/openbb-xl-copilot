@@ -1,4 +1,4 @@
-# Copilot backend
+# OpenBB Excel Copilot
 
 Create `.env` file following `.env.example`.
 
@@ -9,3 +9,5 @@ Run the backend:
 ```bash
 python app.py
 ```
+
+Co-authored with [minhhoang1023](https://github.com/minhhoang1023)
