@@ -2,7 +2,7 @@ from typing import List, Optional
 import json
 from pydantic import BaseModel, Field, root_validator
 
-with open("reference_map.json") as f:
+with open("reference.json") as f:
     FUNCTIONS = json.load(f)
 
 
@@ -46,12 +46,8 @@ class FunctionMessage(BaseModel):
         """Translate the function to Excel."""
         snippet = ""
         if self.function:
-            incoming = {
-                p.name: p.value for p in self.function.parameters
-            }  # pylint: disable=no-member
-            reference = self._get_schema(
-                self.function.name, "parameters"
-            )  # pylint: disable=no-member
+            incoming = {p.name: p.value for p in self.function.parameters}
+            reference = self._get_schema(self.function.name, "parameters")
             args = ""
             for p_name, p_schema in reference.items():
                 if p_name in incoming:
@@ -64,9 +60,7 @@ class FunctionMessage(BaseModel):
             args = args.strip(",")
 
             snippet += "```excel\n"
-            snippet += (
-                f"=OBB.{self.function.name}({args})\n"  # pylint: disable=no-member
-            )
+            snippet += f"=OBB.{self.function.name}({args})\n"
             snippet += "```\n"
 
         t = self.reasoning + "\n\n"

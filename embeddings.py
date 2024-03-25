@@ -9,7 +9,7 @@ from langchain.embeddings import SentenceTransformerEmbeddings
 from langchain_core.vectorstores import VectorStoreRetriever
 
 XL_FUNCS_URL = "https://excel.openbb.co/assets/functions.json"
-XL_DOCS_PATH = "reference_map.json"
+XL_DOCS_PATH = "reference.json"
 XL_EMBS_PATH = "db"
 
 

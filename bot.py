@@ -1,17 +1,16 @@
 """Bot module."""
 import os
 
-# import json
-
-from datetime import datetime
 from typing import Optional
+from datetime import datetime
 
 from dotenv import dotenv_values
+import pytz
 import instructor
 from openai import OpenAI
 from langchain_core.vectorstores import VectorStoreRetriever
+
 from embeddings import Embeddings
-import pytz
 from models import FunctionMessage
 
 os.environ["TOKENIZERS_PARALLELISM"] = "false"
@@ -32,8 +31,7 @@ PROMPT = f"""
 
     If no specific symbol is provided, use AAPL as the default symbol.
 
-    You are able to express yourself purely through JSON, strictly and precisely adhering to the provided schemas. 
-
+    You are able to express yourself purely through JSON, strictly and precisely adhering to the provided schemas.
 """
 
 
